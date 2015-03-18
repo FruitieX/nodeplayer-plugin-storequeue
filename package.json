@@ -1,0 +1,24 @@
+{
+  "name": "nodeplayer-plugin-storequeue",
+  "version": "0.1.95",
+  "description": "Stores the nodeplayer queue whenever it changes, and restores queue on nodeplayer restart",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FruitieX/nodeplayer-plugin-storequeue.git"
+  },
+  "author": "FruitieX",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FruitieX/nodeplayer-plugin-storequeue/issues"
+  },
+  "homepage": "https://github.com/FruitieX/nodeplayer-plugin-storequeue",
+  "dependencies": {
+    "mkdirp": "^0.5.0",
+    "nodeplayer-config": "*",
+    "underscore": "^1.8.2"
+  }
+}
