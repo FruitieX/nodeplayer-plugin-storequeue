@@ -1,6 +1,6 @@
 {
   "name": "nodeplayer-plugin-storequeue",
-  "version": "0.1.96",
+  "version": "0.1.97",
   "description": "Stores the nodeplayer queue whenever it changes, and restores queue on nodeplayer restart",
   "main": "index.js",
   "scripts": {
