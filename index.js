@@ -6,7 +6,7 @@ var path = require('path');
 var mkdirp = require('mkdirp');
 var _ = require('underscore');
 
-var nodeplayerConfig = require('nodeplayer-config');
+var nodeplayerConfig = require('nodeplayer').config;
 var coreConfig = nodeplayerConfig.getConfig();
 var defaultConfig = require('./default-config.js');
 var config = nodeplayerConfig.getConfig(MODULE_NAME, defaultConfig);
