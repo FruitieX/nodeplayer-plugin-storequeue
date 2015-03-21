@@ -3,6 +3,7 @@
 var MODULE_NAME = 'plugin-storequeue';
 
 var path = require('path');
+var fs = require('fs');
 var mkdirp = require('mkdirp');
 var _ = require('underscore');
 
