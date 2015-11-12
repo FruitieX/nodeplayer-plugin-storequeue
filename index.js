@@ -21,7 +21,9 @@ exports.init = function(_player, _logger, callback) {
 
     mkdirp.sync(path.dirname(config.queueStorePath));
     try {
-        player.queue = require(config.queueStorePath);
+        var storedQueue = require(config.queueStorePath);
+        player.queue = storedQueue.queue;
+        player.playbackPosition = storedQueue.position || 0;
         _.each(player.queue, function(song) {
             logger.verbose('added stored song to queue: ' + song.songID);
         });
@@ -37,6 +39,19 @@ exports.onBackendsInitialized = function() {
 };
 
 exports.postQueueModify = function(queue) {
-    fs.writeFileSync(config.queueStorePath, JSON.stringify(player.queue, undefined, 4));
+    fs.writeFileSync(config.queueStorePath, JSON.stringify({
+        queue: player.queue,
+        position: 0
+    }, undefined, 4));
 };
+
+process.on('SIGINT', function() {
+    console.log('saving playback queue...');
+    fs.writeFileSync(config.queueStorePath, JSON.stringify({
+        queue: player.queue,
+        position: new Date().getTime() - player.playbackStart + player.playbackPosition
+    }, undefined, 4));
+    process.exit(0);
+});
+
 exports.postSongsRemoved = exports.postQueueModify;
