@@ -22,13 +22,13 @@ exports.init = function(_player, _logger, callback) {
     mkdirp.sync(path.dirname(config.queueStorePath));
     try {
         var storedQueue = require(config.queueStorePath);
-        player.queue = storedQueue.queue;
+        player.playlist = storedQueue.playlist;
         player.playbackPosition = storedQueue.position || 0;
-        _.each(player.queue, function(song) {
-            logger.verbose('added stored song to queue: ' + song.songID);
+        _.each(player.playlist, function(song) {
+            logger.verbose('added stored song to playlist: ' + song.songID);
         });
     } catch (e) {
-        logger.warn('no stored queue found');
+        logger.warn('no stored playlist found');
     }
 
     callback();
@@ -38,17 +38,17 @@ exports.onBackendsInitialized = function() {
     player.prepareSongs();
 };
 
-exports.postQueueModify = function(queue) {
+exports.postQueueModify = function(playlist) {
     fs.writeFileSync(config.queueStorePath, JSON.stringify({
-        queue: player.queue,
+        playlist: player.playlist,
         position: 0
     }, undefined, 4));
 };
 
 process.on('SIGINT', function() {
-    console.log('saving playback queue...');
+    console.log('saving playback playlist...');
     fs.writeFileSync(config.queueStorePath, JSON.stringify({
-        queue: player.queue,
+        playlist: player.playlist,
         position: new Date().getTime() - player.playbackStart + player.playbackPosition
     }, undefined, 4));
     process.exit(0);
